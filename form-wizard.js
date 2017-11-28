@@ -6,9 +6,10 @@
 
 		// Default settings
 		var settings = $.extend({
-			required: true,
-			requiredSuccessAlertMessage: 'Required field(s) completed!',
-			requiredFailAlertMessage: 'Fill out required field(s)!',
+			require: true,
+			validate: true,
+			requireSuccessAlertMessage: 'Required field(s) completed!',
+			requireFailAlertMessage: 'Fill out required field(s)!',
 		}, options);
 
 		// Private settings not ready for configuration
@@ -20,15 +21,15 @@
 			buttonBlockTarget: '.fw-button-block',
 			successAlert: '.alert-success',
 			failAlert: '.alert-warning',
-			requiredAlert: '.fw-required-alert',
+			requireAlert: '.fw-require-alert',
 		};
 
 		// Initialize everything here
 		$(function () {
 			(function () {
 
-				if (settings.hasOwnProperty('required')) {
-					if (settings.required === true) Required.start();
+				if (settings.hasOwnProperty('require')) {
+					if (settings.require === true) Require.start();
 				}
 
 			}());
@@ -42,7 +43,7 @@
 		/*
 		 * Requiring selected fields to enable submit button
 		 */
-		var Required = (function () {
+		var Require = (function () {
 			// Useful to overpass scope restriction
 			var self = this;
 
@@ -135,15 +136,15 @@
 					});
 
 					// Remove existing alert component inside of root if there's any
-					_.find(_settings.requiredAlert).remove();
+					_.find(_settings.requireAlert).remove();
 
 					// If isSomethingwrong set to true during the each loop
 					if (isSomethingWrong) {
 
 						var fwAlert = `
-							<div class="alert ${ classTrim(_settings.failAlert) } ${ classTrim(_settings.requiredAlert) } alert-dismissible" role="alert">
+							<div class="alert ${ classTrim(_settings.failAlert) } ${ classTrim(_settings.requireAlert) } alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								${ settings.requiredFailAlertMessage }
+								${ settings.requireFailAlertMessage }
 							</div>
 						`;
 
@@ -156,9 +157,9 @@
 					} else {
 
 						var fwAlert = `
-							<div class="alert ${ classTrim(_settings.successAlert) } ${ classTrim(_settings.requiredAlert) } alert-dismissible" role="alert">
+							<div class="alert ${ classTrim(_settings.successAlert) } ${ classTrim(_settings.requireAlert) } alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								${ settings.requiredSuccessAlertMessage }
+								${ settings.requireSuccessAlertMessage }
 							</div>
 						`;
 
